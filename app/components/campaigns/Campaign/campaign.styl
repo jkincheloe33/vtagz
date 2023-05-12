@@ -1,0 +1,28 @@
+@import '@/styles/breakpoints.styl'
+
+#campaign
+  .section:not(:last-of-type)
+    margin-bottom 24px
+  .campaign-header
+    align-items center
+    display flex
+    justify-content space-between
+    @media (max-width: $mobile-breakpoint)
+      align-items flex-start
+      flex-direction column
+      gap 20px
+      .btn
+        width 100%
+  .list-table
+    padding-top 40px
+    @media (max-width: $mobile-breakpoint)
+      padding-top 20px
+  .empty
+    margin 0
+    padding-top 12px
+    text-align center
+  #edit-campaign
+    .rows
+      cursor default
+      &:hover
+        background-color var(--neutral-00)

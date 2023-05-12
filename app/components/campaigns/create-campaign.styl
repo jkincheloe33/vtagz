@@ -1,0 +1,46 @@
+@import '@/styles/breakpoints.styl'
+
+#create-campaign
+  max-width 672px
+  > .body-1-medium
+    margin-top 2.28rem
+    color var(--neutral-04)
+  .btn.primary
+    width 100%
+  .ideas
+    margin 2rem auto
+    display grid
+    grid-template-columns repeat(2, 50%)
+    grid-gap 2.28rem 0
+    @media screen and (max-width: $mobile-breakpoint)
+      grid-template-columns repeat(1, 100%)
+      grid-gap 1.5rem 0
+
+.icon-and-text
+  display flex
+  gap 1rem
+  align-items center
+  .icon
+    display flex
+    justify-content center
+    align-items center
+    border solid 2px var(--neutral-03)
+    width 4.7rem
+    aspect-ratio 1/1
+    border-radius 100%
+  .base-1-semibold
+    margin-bottom 0
+  .badge
+    font-size 0.85rem
+    font-weight 700
+    line-height 1.14rem
+    letter-spacing -0.01em
+    border-radius 4px
+    padding 4px 8px
+    color var(--neutral-07)
+    margin-top 0.5rem
+    text-transform capitalize
+    &.badge-new
+      background-color var(--secondary-02)
+    &.badge-popular
+      background-color var(--secondary-01)

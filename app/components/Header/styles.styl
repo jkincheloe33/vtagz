@@ -1,0 +1,66 @@
+#header
+  background-color var(--neutral-01)
+  display flex
+  width 100%
+  justify-content space-between
+  align-items center
+  padding var(--gap-vertical) var(--gap-horizontal)
+  position fixed
+  z-index 1
+  @media (max-width: 900px)
+    border-bottom 1px solid var(--neutral-02)
+  .logo-wrapper
+    flex 0 0 auto
+    flex-basis calc(24% - 12px)
+  .logo-wrapper.logged-in
+    @media (max-width: 900px)
+      display none
+  .sign-in
+    padding 0 16px
+    color var(--neutral-04-75)
+    margin-bottom 0
+    a
+      color var(--neutral-07)
+  .header-actions
+    align-items center
+    display flex
+    flex 1
+    justify-content flex-end
+    padding-left 40px
+    .header-buttons
+      align-items center
+      display flex
+      gap 24px
+      .avatar
+        @media (max-width: 900px)
+          display none
+#hamburger
+  cursor pointer
+  height 48px
+  position relative
+  width 48px
+  @media (min-width 901px)
+    display none
+  &::before,
+  &::after
+    background-color var(--neutral-04)
+    border-radius 12px
+    content ''
+    height 2px
+    left 16px
+    position absolute
+    transition transform 250ms cubic-bezier(0.67, 0, 0.37, 0.99)
+    width 16px
+  &::before
+    top 19px
+    transform-origin bottom left
+  &::after
+    bottom 19px
+    transform-origin top left
+  &.show-menu
+    &::before
+      transform rotate(45deg) translateY(-2.5px)
+    &::after
+      transform rotate(-45deg) translateY(2.5px)
+
+

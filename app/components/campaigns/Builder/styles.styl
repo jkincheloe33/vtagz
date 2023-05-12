@@ -1,0 +1,72 @@
+#builder-form,
+.builder,
+  .section
+    &:not(:last-of-type)
+      margin-bottom 8px
+    & > .section-header
+      margin-bottom 32px
+  .builder-label
+    display block
+    margin-bottom 16px
+  .builder-input
+    background-color var(--neutral-02)
+    border none
+    border-radius 12px
+    margin-bottom 32px
+    padding 12px
+    width 100%
+    &::placeholder
+      color var(--neutral-04-75)
+      font-size 14px
+      font-weight 600
+  .builder-button
+    width 100%
+  .builder-description
+    color var(--neutral-04)
+    margin-bottom 2.28rem
+  .extended-section
+    border-top 1px solid var(--neutral-03)
+    margin-top 16px
+    padding-top 16px
+    select
+      width 100%
+    .blockchain-select
+      margin-bottom 16px
+    hr
+      margin 0
+      border-top 2px solid var(--neutral-03)
+    .builder-description
+      margin-bottom 0
+      img
+        width .85rem
+        height .85rem
+    .actions
+      display flex
+      align-items center
+      justify-content flex-end
+      column-gap 1rem
+      .btn
+        width auto
+.section.modal-section
+  display flex
+  flex-direction column
+  row-gap 2.28rem
+  max-width 560px
+  margin-bottom 0
+  p
+    color var(--neutral-04)
+    margin-bottom 0
+  hr
+    margin 0
+  .builder-description
+    margin-bottom 0
+  .header
+    display flex
+    align-items center
+    justify-content space-between
+    .section-header
+      margin-bottom 0
+    .close
+      border-radius 100%
+      padding .425rem .85rem
+      background var(--neutral-03)

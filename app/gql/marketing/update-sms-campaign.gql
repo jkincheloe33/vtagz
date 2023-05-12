@@ -1,0 +1,25 @@
+mutation UpdateSmsCampaign(
+  $id: String
+  $productId: Int
+  $brandId: Int
+  $active: Boolean
+  $onboardingMessage: String
+  $faqMessage: String
+) {
+  updateSmsCampaign(
+    id: $id
+    productId: $productId
+    brandId: $brandId
+    active: $active
+    onboardingMessage: $onboardingMessage
+    faqMessage: $faqMessage
+  ) {
+    id
+    productId
+    brandId
+    active
+    onboardingMessage
+    faqMessage
+    status
+  }
+}

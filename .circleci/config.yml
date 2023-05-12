@@ -1,0 +1,225 @@
+version: 2.1
+orbs:
+  # Node.js orb to make package install and caching easy
+  node: circleci/node@4.7.0
+  # AWS CLI orb for access to S3 and Cloudfront commands
+  aws-cli: circleci/aws-cli@2.0.3
+  # Slack orb for sending notifications
+  slack: circleci/slack@4.4.2
+jobs:
+  setup:
+    executor:
+      name: node/default
+      tag: 16.13.0
+    steps:
+      - checkout
+      - run:
+          name: Rebase onto head branch
+          command: |
+            if [ -n "$CIRCLE_PULL_REQUEST" ]; then
+              pr=$(echo https://api.github.com/repos/${CIRCLE_PULL_REQUEST:19} | sed "s/\/pull\//\/pulls\//")
+              base=$(curl -s -H "Authorization: token ${GITHUB_TOKEN}" $pr | jq -r '.base.ref')
+              git config --global user.email "ci@vtagz.com"
+              git config --global user.name "circleci"
+              git rebase origin/${base}
+            fi
+      - node/install-packages:
+          pkg-manager: yarn
+      # Save workspace for subsequent jobs
+      - persist_to_workspace:
+          root: .
+          paths:
+            - .
+  lint:
+    executor:
+      name: node/default
+      tag: 16.13.0
+    steps:
+      - attach_workspace:
+          at: .
+      - run:
+          name: Run Linting
+          command: yarn run lint
+  compile:
+    executor:
+      name: node/default
+      tag: 16.13.0
+    steps:
+      - attach_workspace:
+          at: .
+      - run:
+          name: Compile website code with Webpack
+          command: npx webpack -c webpack.${COMPILE_MODE}.js
+      - run:
+          name: Update version.txt to current sha1
+          command: echo ${CIRCLE_SHA1} > dist/version.txt
+      - persist_to_workspace:
+          root: .
+          paths:
+            - .
+  upload-to-s3:
+    executor: aws-cli/default
+    steps:
+      - attach_workspace:
+          at: .
+      - aws-cli/setup
+      - run: aws s3 sync dist/. s3://${S3_BUCKET} --delete
+      - run: aws s3 cp dist/index.html s3://${S3_BUCKET} --cache-control 'no-cache, max-age=0'
+      - run: aws s3 cp dist/version.txt s3://${S3_BUCKET} --cache-control 'no-cache, max-age=0'
+  invalidate-cloudfront-dist:
+    executor: aws-cli/default
+    steps:
+      - attach_workspace:
+          at: .
+      - aws-cli/setup
+      - run: aws cloudfront create-invalidation --distribution-id ${DISTRIBUTION_ID} --paths "/index.html" "/version.txt"
+
+  success_notification:
+    docker:
+      - image: cimg/base:stable
+    steps:
+      - slack/notify:
+          event: always
+          custom: |
+            {
+              "text": "",
+              "blocks": [
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": "✅ *Successful Deployment* `${CIRCLE_PROJECT_REPONAME}` -- `${CIRCLE_TAG:-production}`\n${CIRCLE_PULL_REQUEST}"
+                  }
+                },
+                {
+                  "type": "actions",
+                  "elements": [
+                    {
+                      "type": "button",
+                      "text": {
+                        "type": "plain_text",
+                        "text": "View Job"
+                      },
+                      "url": "${CIRCLE_BUILD_URL}"
+                    }
+                  ]
+                }
+              ]
+            }
+
+# post-step anchor for sending Slack notification on job failure
+slack-fail-post-step: &slack-fail-post-step
+  post-steps:
+    - slack/notify:
+        event: fail
+        template: basic_fail_1
+        branch_pattern: master
+workflows:
+  compile_and_deploy:
+    jobs:
+      - setup:
+          context:
+            - aws-cd-user
+            - slack
+            - ci-retrigger
+          <<: *slack-fail-post-step
+      - lint:
+          requires:
+            - setup
+          context: slack
+          <<: *slack-fail-post-step
+      - compile:
+          pre-steps:
+            - when:
+                condition:
+                  and:
+                    - << pipeline.git.branch >>
+                    - not:
+                        equal: [ master, << pipeline.git.branch >> ]
+                steps:
+                  - run: |
+                      echo 'export TARGET_ENV=staging' >> $BASH_ENV
+                      echo 'export COMPILE_MODE=dev' >> $BASH_ENV
+                      source $BASH_ENV
+            - when:
+                condition:
+                  matches: {
+                    pattern: /^master$/,
+                    value: << pipeline.git.branch >>
+                  }
+                steps:
+                  - run: |
+                      echo 'export NODE_ENV=production' >> $BASH_ENV
+                      echo 'export COMPILE_MODE=prod' >> $BASH_ENV
+                      source $BASH_ENV
+          requires:
+            - setup
+          context: slack
+          <<: *slack-fail-post-step
+      - upload-to-s3:
+          pre-steps:
+            - when:
+                condition:
+                  matches: {
+                    pattern: /^master$/,
+                    value: << pipeline.git.branch >>
+                  }
+                steps:
+                  - run: |
+                      echo 'export S3_BUCKET=$PROD_S3_BUCKET' >> $BASH_ENV
+                      source $BASH_ENV
+          requires:
+            - compile
+          filters: &deploy_filter
+            branches:
+              only: master
+          context:
+            - aws-cd-user
+            - slack
+          <<: *slack-fail-post-step
+      - invalidate-cloudfront-dist:
+          pre-steps:
+            - when:
+                condition:
+                  matches: {
+                    pattern: /^master$/,
+                    value: << pipeline.git.branch >>
+                  }
+                steps:
+                  - run: |
+                      echo 'export DISTRIBUTION_ID=$PROD_DISTRIBUTION_ID' >> $BASH_ENV
+                      source $BASH_ENV
+          requires:
+            - upload-to-s3
+          filters:
+            <<: *deploy_filter
+          context:
+            - aws-cd-user
+            - slack
+          <<: *slack-fail-post-step
+      - success_notification:
+          requires:
+            - invalidate-cloudfront-dist
+          context:
+            - slack
+            - ci-retrigger
+          filters:
+            <<: *deploy_filter
+          post-steps:
+            # retrigger CI on open PRs if we made a commit to master
+            - when:
+                condition:
+                  equal: [ master, << pipeline.git.branch >> ]
+                steps:
+                  - run: |
+                      url=https://api.github.com/repos/MammothMedia/${CIRCLE_PROJECT_REPONAME}/pulls
+                      data=$(curl -s -H "Accept: application/vnd.github+json" -H "Authorization: token ${GITHUB_TOKEN}" $url)
+                      count=$(echo $data | jq '. | length')
+                      for ((i=0; i<$count; i++)); do
+                        branch=$(echo $data | jq -r '.['$i'].head.ref')
+                        curl --request POST \
+                          --url https://circleci.com/api/v2/project/gh/MammothMedia/${CIRCLE_PROJECT_REPONAME}/pipeline \
+                          --header "Circle-Token: $CIRCLECI_API_KEY" \
+                          --header "content-type: application/json" \
+                          --data '{"branch":"'$branch'"}'
+                      done

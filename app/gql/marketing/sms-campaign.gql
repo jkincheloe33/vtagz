@@ -1,0 +1,12 @@
+query GetSmsCampaign($productId: Int) {
+  getSmsCampaign(productId: $productId) {
+    id
+    productId
+    brandId
+    phoneNumber
+    active
+    onboardingMessage
+    faqMessage
+    status
+  }
+}

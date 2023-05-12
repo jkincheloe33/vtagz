@@ -1,0 +1,7 @@
+mutation DeactivateProduct($id: Int) {
+  deactivateProduct(id: $id) {
+    ... on Product {
+      id
+    }
+  }
+}

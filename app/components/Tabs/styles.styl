@@ -1,0 +1,26 @@
+.tabs-wrapper
+  flex 1;
+  position relative
+.tab-row
+  align-items center
+  cursor pointer
+  display flex
+  padding 14px
+  p
+    color var(--neutral-04)
+    font-size 15px
+    font-weight 600
+    margin 0 0 0 14px
+    transition color 250ms ease
+  p.active
+    color var(--neutral-07)
+.tab-background
+  background-color var(--neutral-03)
+  border-radius 12px
+  box-shadow inset 0px -2px 1px rgba(0, 0, 0, 0.05), inset 0px 1px 1px #FFFFFF
+  left 0
+  position absolute
+  top 0
+  transition transform 250ms cubic-bezier(0.67, 0, 0.37, 0.99)
+  width 100%
+  z-index -1

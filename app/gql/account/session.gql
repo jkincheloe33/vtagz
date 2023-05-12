@@ -1,0 +1,17 @@
+query Session {
+  session {
+    authorized
+    isNewUser
+    account {
+      id
+      email
+      roleFlag
+    }
+    brand {
+      id
+      name
+      industry
+      size
+    }
+  }
+}

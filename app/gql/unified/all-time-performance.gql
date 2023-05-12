@@ -1,0 +1,12 @@
+query AllTimePerformance($brandId: Int, $productId: Int) {
+  allTimePerformance(brandId: $brandId, productId: $productId) {
+    impressions
+    claims
+    ... on ProductPerformanceData {
+      productId
+    }
+    ... on BrandPerformanceData {
+      brandId
+    }
+  }
+}

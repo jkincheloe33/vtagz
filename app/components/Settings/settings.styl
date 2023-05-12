@@ -1,0 +1,38 @@
+@import '@/styles/breakpoints.styl'
+
+#settings
+  align-items flex-start
+  display flex
+  gap 32px
+  @media (max-width: $small-desktop-breakpoint)
+    flex-direction column
+  // update to proper tabs component once we add more settings options
+  .tab
+    background-color var(--neutral-03)
+    flex 0 0 29%
+    pointer-events none
+    text-align left
+    @media (max-width: $small-desktop-breakpoint)
+      // hiding on mobile until we have more than one settings tab
+      display none
+  .settings-details
+    flex 1
+    @media (max-width: $small-desktop-breakpoint)
+      width 100%
+  .settings-section
+    &:not(:first-of-type)
+      padding-top 48px
+      @media (max-width: $small-desktop-breakpoint)
+        padding-top 32px
+    &:not(:last-of-type)
+      border-bottom 1px solid var(--neutral-03)
+      padding-bottom 48px
+      @media (max-width: $small-desktop-breakpoint)
+        padding-bottom 32px
+    .section-header
+      margin-bottom 32px
+    .no-spacing
+      margin-bottom 0
+    .btn
+      @media (max-width: $mobile-breakpoint)
+        width 100%

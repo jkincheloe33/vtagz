@@ -1,0 +1,27 @@
+.switch
+  display flex
+  justify-content space-between
+  align-items center
+  label
+    cursor pointer
+  .switch-bar
+    border-radius 2.28rem
+    width 3.42rem
+    height 1.71rem
+    background var(--neutral-02)
+    cursor pointer
+    padding 2px
+    transition none
+    &.active
+      background var(--primary-01)
+      transition all .05s linear .05s
+      .switch-handle
+        translate 1.7rem 0
+  .switch-handle
+    height 1.42rem
+    width 1.42rem
+    background var(--neutral-01)
+    border-radius 100%
+    translate 0 0
+    box-shadow 0px 2px 4px 0px #00000033, 0px -1px 1px 0px #0000001A inset, 0px 2px 2px 0px #FFFFFF inset
+    transition all .1s linear

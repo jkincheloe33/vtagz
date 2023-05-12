@@ -1,0 +1,10 @@
+mutation DeleteVariant($productId: Int!, $id: String!) {
+  deleteVariant(productId: $productId, id: $id) {
+    ... on VariantDeletedResponse {
+      variant {
+        id
+      }
+      codesDownloadLink
+    }
+  }
+}

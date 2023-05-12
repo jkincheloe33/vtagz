@@ -1,0 +1,32 @@
+mutation CreateVariant($productId: Int!, $data: VariantInputType) {
+  createVariant(productId: $productId, data: $data) {
+    ... on VariantCreatedResponse {
+      variant {
+        id
+        name
+        title
+        description
+        quantity
+        fallbackQuantity
+        disabled
+        utility {
+          type
+          productUrl
+          discountCode
+          expiresAt
+        }
+        images
+        imagesMeta {
+          title
+        }
+        rarity
+        fallbackTier
+        discountCodes
+        customMetadata {
+          key
+          value
+        }
+      }
+    }
+  }
+}

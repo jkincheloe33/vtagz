@@ -1,0 +1,35 @@
+.radio-button
+  input[type='radio']
+    display none
+  label
+    display flex
+    gap 1rem
+    color var(--neutral-04)
+    cursor pointer
+    align-items center
+    .badge
+      text-transform capitalize
+      background var(--neutral-02)
+      color var(--neutral-04)
+      padding 4px 8px
+      border-radius 4px
+  .radio-control
+    width 1.714rem
+    height 1.714rem
+    background var(--neutral-01)
+    border 2px solid var(--neutral-04-40)
+    border-radius 1.714rem
+    position relative
+    &.checked
+      background var(--primary-01)
+      border none
+      &:after
+        content ''
+        position absolute
+        width .85rem
+        height .85rem
+        border-radius .85rem
+        left .42rem
+        top .42rem
+        background var(--neutral-01)
+        box-shadow 0px 2px 3px rgba(0, 0, 0, 0.25), inset 0px -1px 2px #DEDEDE

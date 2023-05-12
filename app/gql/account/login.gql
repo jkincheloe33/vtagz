@@ -1,0 +1,25 @@
+query Login($email: String, $password: String, $loginProvider: String!) {
+  login(email: $email, password: $password, loginProvider: $loginProvider) {
+    ... on AccountBannedError {
+      bannedMessage: message
+    }
+    ... on InvalidLoginError {
+      invalidMessage: message
+    }
+    ... on Session {
+      authorized
+      isNewUser
+      account {
+        id
+        email
+        roleFlag
+      }
+      brand {
+        id
+        name
+        industry
+        size
+      }
+    }
+  }
+}

@@ -1,0 +1,69 @@
+mutation ModifyProduct(
+  $id: Int
+  $publish: Boolean
+  $data: ProductModifyInputType
+) {
+  modifyProduct(id: $id, publish: $publish, data: $data) {
+    ... on DuplicateTitleError {
+      duplicateError: message
+    }
+    ... on Product {
+      id
+      title
+      name
+      quantity
+      quantityRemaining
+      imageUrl
+      wrapperImageUrl
+      description
+      claimToken
+      status
+      purchaseLimit
+      metadata {
+        variants {
+          id
+          name
+          title
+          description
+          quantity
+          fallbackQuantity
+          disabled
+          utility {
+            type
+            productUrl
+            discountCode
+            expiresAt
+          }
+          images
+          rarity
+          fallbackTier
+          discountCodes
+        }
+        links {
+          title
+          url
+        }
+        brandedStyling
+        nftScreenStyling
+        disclaimer
+      }
+      isUnlockable
+      belongsToUnlockable
+      unlocksProduct {
+        id
+        title
+        name
+        imageUrl
+      }
+      unlockedByProducts {
+        id
+        title
+        name
+        imageUrl
+      }
+      isGated
+      gatedChainId
+      gatedContractAddress
+    }
+  }
+}

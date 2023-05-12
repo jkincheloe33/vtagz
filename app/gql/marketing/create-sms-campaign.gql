@@ -1,0 +1,24 @@
+mutation CreateSmsCampaign(
+  $productId: Int
+  $brandId: Int
+  $active: Boolean
+  $onboardingMessage: String
+  $faqMessage: String
+) {
+  createSmsCampaign(
+    productId: $productId
+    brandId: $brandId
+    active: $active
+    onboardingMessage: $onboardingMessage
+    faqMessage: $faqMessage
+  ) {
+    id
+    productId
+    brandId
+    phoneNumber
+    active
+    onboardingMessage
+    faqMessage
+    status
+  }
+}

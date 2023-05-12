@@ -1,0 +1,65 @@
+.select
+  position relative
+  .select-box
+    display flex
+    gap 1rem
+    padding .86rem
+    padding-right 3rem
+    width 100%
+    border-radius var(--border-radius)
+    border 2px solid var(--neutral-03)
+    color var(--neutral-04)
+    cursor pointer
+    text-align left
+    background embedurl("@/static/assets/chevron.svg", "utf8") no-repeat right 15px center, var(--neutral-01)
+  select
+    width 0px
+    height 0px
+    position absolute
+    left -9999px
+  .options-box
+    box-shadow 0 3px 7px var(--neutral-04-75)
+    display flex
+    flex-direction column
+    border solid 2px var(--neutral-03)
+    position absolute
+    width 100%
+    overflow hidden
+    z-index 2
+    left 0
+    button
+      border none
+      background var(--neutral-01)
+      color var(--neutral-04)
+      text-align left
+      padding .86rem
+      gap 0.5rem
+      display flex
+      &:hover
+        background var(--neutral-03)
+        color var(--neutral-07)
+  .badge
+    padding 4px 8px
+    background var(--neutral-02)
+    border-radius 4px
+    color var(--neutral-04)
+    text-transform capitalize
+  &.bottom
+    .select-box.active
+      border-bottom-left-radius 0
+      border-bottom-right-radius 0
+      box-shadow 0 0 7px var(--neutral-04-75)
+    .options-box
+      top 100%
+      margin-top -2px
+      border-bottom-left-radius var(--border-radius)
+      border-bottom-right-radius var(--border-radius)
+  &.top
+    .select-box.active
+      border-top-left-radius 0
+      border-top-right-radius 0
+    .options-box
+      bottom 100%
+      margin-bottom -2px
+      border-top-left-radius var(--border-radius)
+      border-top-right-radius var(--border-radius)

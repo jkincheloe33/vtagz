@@ -1,0 +1,38 @@
+@import '@/styles/breakpoints.styl'
+
+#performance.section
+  margin-bottom 8px
+  .performance-header
+    align-items center
+    display flex
+    justify-content space-between
+    @media (max-width: $mobile-breakpoint)
+      align-items flex-start
+      flex-direction column
+      gap 36px
+      .select
+        width 100%
+#performance-blocks
+  align-items stretch
+  display flex
+  flex-wrap nowrap
+  gap 12px
+  margin-top 32px
+  overflow auto
+  .block
+    background-color var(--secondary-04-25)
+    border-radius 12px
+    flex 1
+    flex-basis 285px
+    min-width 285px
+    padding 32px
+    .block-icon
+      margin-bottom 16px
+    .block-type
+      align-items center
+      display flex
+      p
+        margin 0 6px 0 0
+    h3
+      font-size 48px
+      font-weight 600

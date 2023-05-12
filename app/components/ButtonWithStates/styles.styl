@@ -1,0 +1,22 @@
+.btn.btn-with-states
+  align-items center
+  display flex
+  gap 8px
+.btn-with-states.secondary
+  .spinner-icon svg, .icon svg
+    fill var(--neutral-04)
+
+.btn-with-states.primary, .btn-with-states.destructive
+  .spinner-icon svg, .icon svg
+    fill var(--neutral-00)
+.btn-with-states.danger
+  .spinner-icon svg, .icon svg
+    fill var(--primary-03)
+.btn-with-states .spinner-icon svg
+  animation .5s icon-spin linear infinite
+
+@keyframes icon-spin
+  from
+    transform rotate(0deg)
+  to
+    transform rotate(360deg)

@@ -1,0 +1,12 @@
+mutation DeleteSmsCampaign($id: String) {
+  deleteSmsCampaign(id: $id) {
+    id
+    productId
+    brandId
+    phoneNumber
+    active
+    onboardingMessage
+    faqMessage
+    status
+  }
+}

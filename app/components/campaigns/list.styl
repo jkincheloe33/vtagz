@@ -1,0 +1,148 @@
+@import '@/styles/breakpoints.styl'
+
+#list-header
+  margin-bottom 44px
+  display flex
+  align-items center
+  column-gap 2rem
+  row-gap 1rem
+  flex-wrap wrap
+  @media (max-width: $mobile-breakpoint)
+    margin-bottom 20px
+  .select
+    width 100%
+    @media (min-width: $mobile-breakpoint)
+      display none
+    .active,
+    button
+      text-transform capitalize
+.list-table
+  overflow auto
+  .list-overflow
+    // this allows .table-layout to account for its full width including overflow
+    // https://stackoverflow.com/a/12720363
+    display inline-block
+    min-width 100%
+  .columns
+    border-bottom 1px solid var(--neutral-02)
+    margin-bottom 12px
+    padding-bottom 24px
+    @media (max-width: $mobile-breakpoint)
+      display none
+  .rows
+    @media (max-width: $mobile-breakpoint)
+      &:not(:last-of-type)
+        border-bottom 1px solid var(--neutral-03)
+        margin-bottom 32px
+        padding-bottom 32px
+    @media (min-width: $mobile-breakpoint)
+      background-color var(--neutral-00)
+      border-radius 8px
+        padding 12px
+      transition background-color 250ms ease
+      &:not(.inactive)
+        cursor pointer
+        &:hover
+            background-color var(--neutral-02)
+      &:not(:last-of-type)
+        margin-bottom 8px
+.table-layout
+  align-items center
+  display flex
+  flex-wrap nowrap
+  @media (max-width: $mobile-breakpoint)
+    flex-wrap wrap
+    gap 12px
+  .column
+    flex 1
+    min-width 115px
+    @media (max-width: $mobile-breakpoint)
+      flex 0 0 40%
+    // first-child instead of first-of-type because different types of elements are using .column
+    &:first-child
+      flex 0 0 268px
+      min-width 268px
+      text-align left
+      @media (max-width: $mobile-breakpoint)
+        flex 0 0 100%
+        margin-bottom 6px
+  .column-names
+    color var(--neutral-04)
+    font-size 13px
+    font-weight 600
+    margin-bottom 0
+    text-align center
+    @media (max-width: $mobile-breakpoint)
+      text-align left
+    &.mobile
+      @media (min-width: $mobile-breakpoint)
+        display none
+  .row-info
+    align-items center
+    display flex
+    padding-right 32px
+    img
+      border-radius 8px
+      height 80px
+      margin-right 20px
+      object-fit cover
+      width 80px
+    h4
+      display -webkit-box
+      font-size 15px
+      font-weight 700
+      margin-bottom 4px
+      word-break break-word
+      overflow hidden
+      -webkit-line-clamp 2
+      -webkit-box-orient vertical
+    p
+      color var(--neutral-04-75)
+      font-size 13px
+      margin 0
+  .status,
+  .row-values
+    font-size 15px
+    text-align center
+    @media (max-width: $mobile-breakpoint)
+      text-align left
+  .status
+    text-transform capitalize
+    @media (max-width: $mobile-breakpoint)
+      // account for padding to line up text with other columns
+      transform translateX(-8px)
+    span
+      background-color var(--neutral-02)
+      border-radius 4px
+      padding 0 8px
+      @media (min-width: $mobile-breakpoint)
+        display block
+        width 100%
+  .status.active span
+    background-color var(--primary-02-25)
+    color var(--primary-02)
+  .status.inactive span
+    background-color var(--primary-03-25)
+    color var(--primary-03)
+  p
+    margin 0
+
+.status-filters
+  display flex
+  align-items center
+  column-gap 8px
+  @media screen and (min-width 1307px)
+    margin-left auto
+  @media (max-width: $mobile-breakpoint)
+    display none
+  .btn.status-filter
+    color var(--neutral-04)
+    padding 8px 16px
+    border-radius 8px
+    text-transform capitalize
+    &.active, &:active, &:focus
+      background var(--neutral-03)
+      color var(--neutral-07)
+
+.no-campaigns-found
+  text-align center

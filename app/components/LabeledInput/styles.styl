@@ -1,0 +1,19 @@
+.labeled-input
+  display flex
+  align-items center
+  position relative
+  &:not(:first-child)
+    margin-top .5rem
+  label
+    position absolute
+    color var(--neutral-04)
+    pointer-events none
+    translate 1rem -.75rem
+  input[type="text"]
+    border 2px solid var(--primary-01)
+    background var(--neutral-01)
+    color var(--neutral-07)
+    padding-top 2rem
+    width 100%
+    &:placeholder
+      color var(--neutral-04)

@@ -1,0 +1,19 @@
+@import '@/styles/breakpoints.styl'
+
+.campaign-url
+  align-items center
+  display flex
+  margin-bottom 32px
+  @media screen and (max-width: $small-mobile-breakpoint)
+    display block
+  p
+    color var(--neutral-07-50)
+    @media screen and (min-width: $small-mobile-breakpoint)
+      margin 0
+      padding 0 16px
+  .builder-input
+    @media screen and (min-width: $small-mobile-breakpoint)
+      border-bottom-left-radius 0
+      border-top-left-radius 0
+      flex 1
+      margin 0

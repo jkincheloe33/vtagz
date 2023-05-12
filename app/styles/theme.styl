@@ -1,0 +1,197 @@
+@import '@/styles/breakpoints.styl'
+
+:root
+  // Design system color scheme https://www.figma.com/file/TmUli6559WjjPNfonUzZp1/VTAGZ---SaaS?node-id=920%3A75416&t=ArJ72KJXypkTmWkT-0
+  --neutral-00 #ffffff
+  --neutral-01 #FCFCFC
+  --neutral-02 #F4F4F4
+  --neutral-02-80 #F4F4F4CC
+  --neutral-03 #D3CECE
+  --neutral-04 #6F767E
+  --neutral-04-25 #6F767E40
+  --neutral-04-75 #9A9FA5
+  --neutral-04-50 #6F767E
+  --neutral-04-40 rgba(111, 118, 126, 0.4)
+  --neutral-05 #33383F
+  --neutral-06 #272B30
+  --neutral-07 #1A1D1F
+  --neutral-07-50 #1A1D1F80
+  --neutral-08 #111315
+  --neutral-08-50 rgba(17, 19, 21, 0.5)
+  --secondary-01 #FFBC99
+  --secondary-02 #CABDFF
+  --secondary-03 #B1E5FC
+  --secondary-04 #B5E4CA
+  --secondary-04-25 #B5E4CA40
+  --secondary-05 #FFD88D
+  --secondary-06 #EAFAE4
+  --secondary-07 #FFE7E4
+  --primary-01 #2A85FF
+  --primary-02 #83BF6E
+  --primary-02-25 #EAFAE4
+  --primary-03 #FF6A55
+  --primary-03-25 #FFE7E4
+  --primary-04 #8E59FF
+  --gap-horizontal 24px
+  --gap-vertical 24px
+  --border-radius 12px
+html
+  font-size 14px
+body
+  color var(--neutral-07)
+  font-family 'Inter'
+  font-weight 600
+  line-height 1.714
+  letter-spacing -0.01em
+  background var(--neutral-01)
+
+// this is an alternative to using 100vh since that has unintended consquences on IOS mobile devices
+// force IOS navigation bars to always be visible
+// html, body, app and all scrollable containers become height: 100%
+// this prevents fixed bottom elements from sitting underneath the navigation bars
+html,
+body
+  @media (max-width: $small-desktop-breakpoint)
+    height: 100%;
+    min-height: 100vh;
+    // for IOS Mobile to account for navigation bars...JK
+    min-height: -webkit-fill-available;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    position: fixed;
+    width: 100%;
+
+    #app
+      height 100%
+
+// typography: https://www.figma.com/file/TmUli6559WjjPNfonUzZp1/VTAGZ---SaaS?node-id=948%3A78666&t=RemwMra1zmCUpRmu-0
+h1, h2, h3, h4, h5, h6
+  font-weight 600
+h2, .heading-2
+  font-size 3.42rem
+  line-height 1
+  letter-spacing -0.03em
+h4, .heading-4
+  font-size 2.28rem
+  line-height 1.25
+  letter-spacing -0.03em
+h5, .heading-5
+  font-size 1.714rem
+  line-height 1.33
+  letter-spacing -0.02em
+a
+  text-decoration none
+.title-1-medium, .title-1-semibold
+  font-size 1.428rem
+  line-height 2.28rem
+  letter-spacing -0.02em
+  @media screen and (max-width: 576px)
+    font-size 1.285rem
+.title-1-semibold
+  font-weight 600
+.caption-1
+  font-size 0.92rem
+  line-height 1.23rem
+  font-weight 600
+  letter-spacing -0.01em
+.caption-1-medium
+  font-size 0.92rem
+  line-height 1.23rem
+  font-weight 500
+  letter-spacing -0.01em
+.caption-2-bold
+  font-size 0.85rem
+  line-height 1.23rem
+  font-weight 700
+  letter-spacing -0.01em
+.caption-2-medium
+  font-size 0.85rem
+  font-weight 500
+  line-height 0.85rem
+  letter-spacing -0.01em
+.body-1-medium
+  font-size 1.07rem
+  line-height 1.714rem
+  font-weight 500
+  letter-spacing -0.015em
+.base-1-semibold
+  font-weight 600
+  font-size 1.07rem
+  line-height 1.714rem
+  letter-spacing -0.01em
+.base-2
+  font-size 1rem
+  font-weight 600
+  line-height 1.71rem
+  letter-spacing -0.01em
+
+.primary-02
+  color var(--primary-02)
+.primary-03
+  color var(--primary-03)
+
+.error
+  color var(--primary-03)
+  font-weight 400
+
+// buttons: https://www.figma.com/file/TmUli6559WjjPNfonUzZp1/VTAGZ---SaaS?node-id=33%3A714&t=RemwMra1zmCUpRmu-0
+.btn
+  padding 12px 20px
+  border-radius var(--border-radius)
+  border none
+  font-size 1.07rem
+  font-weight 700
+  line-height 1.714rem
+  letter-spacing -0.01em
+  &.small
+    font-size 0.92rem
+    padding 8px 16px
+  &.secondary
+    background var(--neutral-02)
+  &.secondary-alt
+    background var(--neutral-01)
+    color var(--neutral-07)
+    border solid 2px var(--neutral-02)
+  &.primary
+    background var(--primary-01)
+    color var(--neutral-01)
+  &.tertiary
+    background var(--neutral-01)
+    border 2px solid var(--neutral-02)
+  &.danger
+    color var(--primary-03)
+  &.destructive
+    background var(--primary-03)
+    color var(--neutral-00)
+  &.icon
+    img
+      margin-right 10px
+
+
+input[type="text"], input[type="email"], input[type="password"], input[type="number"], select
+  background var(--neutral-02)
+  border-radius var(--border-radius)
+  padding 0.85em
+  border none
+  color var(--neutral-05)
+  font-weight 600
+  box-sizing border-box
+  line-height 1.714
+select
+  border 2px solid var(--neutral-03)
+  color var(--neutral-07)
+  font-weight 600
+  letter-spacing -0.01em
+  -moz-appearance none
+  -webkit-appearance none
+  appearance none
+  cursor pointer
+  background embedurl("@/static/assets/chevron.svg", "utf8") no-repeat right 15px center, var(--neutral-00)
+  option
+    font-family 'Inter', sans-serif
+    font-size 1rem
+
+.tooltip-label
+  align-items center
+  display flex
+  gap 6px

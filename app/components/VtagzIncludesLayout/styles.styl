@@ -1,0 +1,40 @@
+@import '@/styles/breakpoints.styl'
+
+#vtagz-includes-layout
+  display grid
+  grid-template-columns 25% auto
+  @media screen and (max-width: $mobile-breakpoint)
+    display block
+  > div
+    padding 86px var(--gap-horizontal)
+    min-height 100vh
+    display flex
+    flex-direction column
+    justify-content center
+    align-items center
+  .vtagz-includes
+    background-color var(--neutral-02)
+    gap 48px
+    @media screen and (max-width: $mobile-breakpoint)
+      display none
+    ul
+      padding-left 0
+      list-style-type none
+      &> li
+        background embedurl("@/static/assets/check-circle.svg", "utf8") no-repeat left center
+        color var(--neutral-04)
+        padding 10px 0 10px 28px
+  .content
+    background-color var(--neutral-01)
+    > div
+      width 100%
+      max-width 400px
+      @media screen and (min-width: $mobile-breakpoint)
+        min-width 400px
+  .captcha-copy
+    color var(--neutral-04-75)
+
+#Header
+  position fixed
+  top 0
+  left 0

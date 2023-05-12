@@ -1,0 +1,60 @@
+.avatar
+  align-items center
+  border-radius 50%
+  cursor pointer
+  display flex
+  height 48px
+  justify-content center
+  overflow hidden
+  width 48px
+  img
+    height 100%
+    object-fit cover
+    width 100%
+  .avatar-initials
+    color var(--neutral-00)
+    font-size 20px
+    font-weight 700
+    margin 0
+    text-transform capitalize
+    &.uppercase
+      text-transform uppercase
+  &.show-details
+    background-color var(--neutral-02)
+    border-radius 12px
+    justify-content flex-start
+    padding 12px
+    width 100%
+    .avatar-details
+      flex 1
+      padding 0 12px
+      p
+        margin 0
+      .name
+        color var(--neutral-07)
+        font-size 15px
+        font-weight 600
+      .type
+        color var(--neutral-04)
+        font-size 12px
+        font-weight 500
+    .arrows
+      height 24px
+      position relative
+      width 24px
+      &::before,
+      &::after
+        background-color var(--neutral-04)
+        border-radius 12px
+        content ''
+        height 2px
+        left 6px
+        position absolute
+        top 8px
+        transform rotate(45deg)
+        transform-origin bottom left
+        width 8px
+      &::after
+        left 10px
+        transform rotate(-45deg)
+        transform-origin bottom right

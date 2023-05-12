@@ -1,0 +1,65 @@
+mutation CreateProduct($data: ProductCreateInputType) {
+  createProduct(data: $data) {
+    ... on DuplicateTitleError {
+      duplicateError: message
+    }
+    ... on Product {
+      id
+      title
+      name
+      quantity
+      quantityRemaining
+      imageUrl
+      wrapperImageUrl
+      description
+      status
+      claimToken
+      purchaseLimit
+      metadata {
+        variants {
+          id
+          name
+          title
+          description
+          quantity
+          fallbackQuantity
+          disabled
+          utility {
+            type
+            productUrl
+            discountCode
+            expiresAt
+          }
+          images
+          rarity
+          fallbackTier
+          discountCodes
+        }
+        links {
+          title
+          url
+        }
+        brandedStyling
+        nftScreenStyling
+        disclaimer
+      }
+      isUnlockable
+      belongsToUnlockable
+      unlocksProduct {
+        id
+        title
+        name
+        imageUrl
+      }
+      unlockedByProducts {
+        id
+        title
+        name
+        imageUrl
+      }
+      isGated
+      gatedChainId
+      gatedContractAddress
+    }
+  }
+}

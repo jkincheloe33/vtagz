@@ -1,0 +1,13 @@
+mutation ModifyBrand($data: BrandModifyInputType!) {
+  modifyBrand(data: $data) {
+    ... on BrandNameTakenError {
+      takenMessage: message
+    }
+    ... on Brand {
+      id
+      name
+      industry
+      size
+    }
+  }
+}

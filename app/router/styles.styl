@@ -1,0 +1,11 @@
+@import '@/styles/breakpoints.styl'
+
+.layout
+  align-items stretch
+  display flex
+  height 100vh
+  flex-wrap nowrap
+  overflow hidden
+  @media (max-width: $small-desktop-breakpoint)
+    // needed to account for IOS mobile navigation bars
+    height 100%

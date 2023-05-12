@@ -1,0 +1,20 @@
+query PerformanceSummary(
+  $brandId: Int
+  $productId: Int
+  $startDate: Timestamp!
+) {
+  performanceSummary(
+    brandId: $brandId
+    productId: $productId
+    startDate: $startDate
+  ) {
+    impressions
+    claims
+    ... on ProductPerformanceData {
+      productId
+    }
+    ... on BrandPerformanceData {
+      brandId
+    }
+  }
+}

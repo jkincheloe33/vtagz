@@ -1,0 +1,35 @@
+mutation CreateBrand(
+  $brandName: String!
+  $email: String
+  $password: String
+  $loginProvider: String!
+) {
+  createBrand(
+    brandName: $brandName
+    email: $email
+    password: $password
+    loginProvider: $loginProvider
+  ) {
+    ... on AccountBannedError {
+      bannedMessage: message
+    }
+    ... on InvalidLoginError {
+      invalidMessage: message
+    }
+    ... on Session {
+      authorized
+      isNewUser
+      account {
+        id
+        email
+        roleFlag
+      }
+      brand {
+        id
+        name
+        industry
+        size
+      }
+    }
+  }
+}

@@ -1,0 +1,65 @@
+@import '@/styles/breakpoints'
+
+#claim-link-builder
+  align-items flex-start
+  display flex
+  gap 8px
+  .builder
+    flex 0 0 66%
+    @media (max-width: $tablet-breakpoint)
+      flex-basis 100%
+  .builder-footer
+    position fixed
+    bottom 0
+    left 0
+    padding 1.68rem 40px
+    display flex
+    align-items center
+    justify-content space-between
+    @media (max-width: $mobile-breakpoint)
+      justify-content flex-end
+    @media screen and (min-width: $small-desktop-breakpoint)
+      width 76%
+      margin-left 24%
+    p.url
+      margin-bottom 0
+      color var(--neutral-04)
+      max-width 60%
+      white-space break-word
+      @media (max-width: $mobile-breakpoint)
+        display none
+  #details
+    flex 0 0 34%
+    @media (max-width: $tablet-breakpoint)
+      display none
+  .section
+    display flex
+    flex-direction column
+    gap 2.42rem
+    .header
+      display flex
+      justify-content space-between
+      .btn.secondary-alt
+        display flex
+        align-items center
+        gap .8rem
+    .sub-section
+      display flex
+      flex-direction column
+      gap 1rem
+      label
+        display flex
+        justify-content space-between
+        align-items center
+        gap 16px
+        width 100%
+        cursor pointer
+        span
+          color var(--neutral-04-75)
+          display -webkit-box
+          overflow hidden
+          word-break break-all
+          -webkit-line-clamp 1
+          -webkit-box-orient vertical
+      input
+        width 100%
